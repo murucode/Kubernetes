@@ -1,37 +1,85 @@
-## Welcome to GitHub Pages
+# Kubernetes commands
 
-You can use the [editor on GitHub](https://github.com/murwaan/Kubernetes/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Starts the driver in vm or hyper v
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```sh
+minkube start —driver=virtualbox/hyperv
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Delete the minikube from your machine
 
-### Jekyll Themes
+```sh
+minikube delete —all/—purge
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/murwaan/Kubernetes/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Kubectl commands
 
-### Support or Contact
+```sh
+kubectl version
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+kubectl get pods -o wide
+
+kubectl create deployment nginx-muru1 --image=nginx
+
+kubectl expose deployment nginx-muru2 --type=NodePort --port=8080
+
+kubectl run nginx-muru —image=nginx
+```
+
+Pod Commands
+
+```sh
+kubectl create -f pod-def.yaml
+
+kubectl apply -f pod-def.yaml
+
+kubectl describe pod nginx-muru
+```
+
+Replicate controllers
+
+```sh
+kubectl create -f rc-definition.yaml
+
+kubect get replicationcontroller
+
+kubectl delete replicationcontroller name
+```
+
+Replica set
+
+```sh
+kubectl create -f rep-set-defin.yaml
+
+kubectl get replicaset
+
+kubetrl delete replicaset name #deletes replicaset and also the pods
+
+kubectl replace -f replicaset rep-set-def.yaml
+
+kubetctl scale --replicas=6 -f replicaset 'rep-name'
+
+kubectl edit replicaset 'replicaset name'
+```
+
+Delpoyment
+
+```sh
+kubectl get all
+
+kubectl create -f deploy-def.yaml --record
+
+kubectl edit deployment 'deployment name' --record
+
+kubect set image deployment 'deployment name' nginx=nginx1.24 --record
+```
+
+Servicess
+
+```sh
+kubectl create -f service-def.yaml
+
+kubectl get svc
+
+minikube service 'my-service' --url
+```
