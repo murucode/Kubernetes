@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: forecast-service
+spec:
+  type: NodePort #clusterip #load balancer
+  ports:
+    - targetPort: 1947
+      port: 1947
+      nodePort: 30080
+  selector:
+    name: forecast-app

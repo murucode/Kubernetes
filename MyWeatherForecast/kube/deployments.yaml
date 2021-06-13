@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecast-deployment
+  labels: 
+    name: forecast-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: forecast-app
+  template:
+    metadata:
+      labels:
+        name: forecast-app
+    spec:
+      containers:
+      - name: myweather-container
+        image: myweatherforecast
+        imagePullPolicy: Never #Never will use the local image in the machine
