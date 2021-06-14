@@ -7,7 +7,7 @@ services:
     image: myweatherforecast
     build:
       context: .
-      dockerfile: MyWeatherForecast/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - 1947:1947
     environment:

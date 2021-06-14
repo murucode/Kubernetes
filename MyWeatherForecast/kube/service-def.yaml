@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: forecast-service
 spec:
-  type: NodePort #clusterip #load balancer
+  type: ClusterIP #clusterip #load balancer
   ports:
     - targetPort: 1947
-      port: 1947
-      nodePort: 30080
+      port: 1947     
   selector:
     name: forecast-app

@@ -16,5 +16,8 @@ spec:
     spec:
       containers:
       - name: myweather-container
-        image: myweatherforecast
-        imagePullPolicy: Never #Never will use the local image in the machine
+        image: mururegistry.azurecr.io/muru-forecast:v1
+        #imagePullPolicy: Never #Never will use the local image in the machine
+        # ports:
+        #     - containerPort: 80
+        #       name: http

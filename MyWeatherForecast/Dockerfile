@@ -11,10 +11,10 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["MyWeatherForecast/MyWeatherForecast.csproj", "MyWeatherForecast/"]
-RUN dotnet restore "MyWeatherForecast/MyWeatherForecast.csproj"
+COPY ["MyWeatherForecast.csproj", "./"]
+RUN dotnet restore "MyWeatherForecast.csproj"
 COPY . .
-WORKDIR "/src/MyWeatherForecast"
+WORKDIR "/src"
 RUN dotnet build "MyWeatherForecast.csproj" -c Release -o /app/build
 
 FROM build AS publish

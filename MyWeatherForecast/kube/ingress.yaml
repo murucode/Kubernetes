@@ -1,0 +1,16 @@
+#ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: forecast-website
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    - host: contoso.46b2b23ccefa4a5a8549.westeurope.aksapp.io
+      http:
+        paths:
+          - backend: # How the ingress will handle the requests
+              serviceName: forecast-service # Which service the request will be forwarded to
+              servicePort: 1947 # Which port in that service
+            path: / # Which path is this rule referring to
