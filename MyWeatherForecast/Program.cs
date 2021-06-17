@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using MyWeatherForecast.Database;
 
 namespace MyWeatherForecast
 {
@@ -13,7 +15,40 @@ namespace MyWeatherForecast
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+            using (IServiceScope scope = host.Services.CreateScope())
+            {
+                ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                var authorDbEntry = context.Authors.Add(
+                  new Author
+                  {
+                      Name = "First Author",
+                  }
+                );
+
+                context.SaveChanges();
+
+                context.Books.AddRange(
+                  new Book
+                  {
+                      Id = 1,
+                      Name = "First Book",
+                      Published = true,
+                      AuthorId = authorDbEntry.Entity.Id,
+                      Genre = "Mystery"
+                  },
+                  new Book
+                  {
+                      Id = 2,
+                      Name = "Second Book",
+                      Published = true,
+                      AuthorId = authorDbEntry.Entity.Id,
+                      Genre = "Crime"
+                  }
+                );
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

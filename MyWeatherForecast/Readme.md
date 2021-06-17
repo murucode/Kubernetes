@@ -26,3 +26,7 @@ Steps:
    ```sh
    kubectl create -f service-def.yaml
    ```
+```sh
+az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>
+
+```
